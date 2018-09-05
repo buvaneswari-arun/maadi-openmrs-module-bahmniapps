@@ -25,7 +25,7 @@ angular.module('bahmni.appointments')
                 if (isCurrentUserHasPrivilege(Bahmni.Appointments.Constants.privilegeManageAppointments)) {
                     return providers;
                 }
-                if (isCurrentUserHasPrivilege(Bahmni.Appointments.Constants.privilegeSelfAppointments)) {
+                if (isCurrentUserHasPrivilege(Bahmni.Appointments.Constants.privilegeOwnAppointments)) {
                     return _.filter(providers, function (provider) {
                         return provider.uuid === $rootScope.currentProvider.uuid;
                     });
