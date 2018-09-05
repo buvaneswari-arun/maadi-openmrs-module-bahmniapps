@@ -60,7 +60,7 @@ angular.module('bahmni.appointments')
                     }
                     else if (isCurrentUserHavePrivilege(popUpScope.selfAppointmentPrivilege)) {
                         return _.isNull(scope.appointments[0].provider) ||
-                            scope.appointments[0].provider.uuid === $rootScope.currentProvider.uuid
+                            scope.appointments[0].provider.uuid === $rootScope.currentProvider.uuid;
                     }
                     return false;
                 };

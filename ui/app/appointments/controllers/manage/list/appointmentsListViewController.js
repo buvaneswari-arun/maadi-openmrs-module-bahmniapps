@@ -286,7 +286,7 @@ angular.module('bahmni.appointments')
                     return userPrivilege.name === privilege;
                 }));
             };
-            
+
             $scope.isUserAllowedToPerform = function () {
                 if (isCurrentUserHavePrivilege($scope.manageAppointmentPrivilege)) {
                     return true;
@@ -294,7 +294,7 @@ angular.module('bahmni.appointments')
                 else if (isCurrentUserHavePrivilege($scope.selfAppointmentPrivilege)) {
                     if ($scope.selectedAppointment) {
                         return _.isNull($scope.selectedAppointment.provider) ||
-                            $scope.selectedAppointment.provider.uuid === $rootScope.currentProvider.uuid
+                            $scope.selectedAppointment.provider.uuid === $rootScope.currentProvider.uuid;
                     }
                 }
                 return false;

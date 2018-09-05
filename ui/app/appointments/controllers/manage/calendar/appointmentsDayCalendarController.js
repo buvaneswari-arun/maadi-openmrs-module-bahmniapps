@@ -54,7 +54,7 @@ angular.module('bahmni.appointments')
                     uiCalendarConfig.calendars[calendar].fullCalendar('changeView', view);
                 };
 
-                function isSelfAppointmentUserPrivilegedToCreateAppointment(privilege, provider) {
+                function isSelfAppointmentUserPrivilegedToCreateAppointment (privilege, provider) {
                     const NO_PROVIDER_UUID = 'no-provider-uuid';
                     return (privilege.name === Bahmni.Appointments.Constants.privilegeSelfAppointments &&
                         (provider.uuid === NO_PROVIDER_UUID || provider.uuid === $rootScope.currentProvider.uuid));
