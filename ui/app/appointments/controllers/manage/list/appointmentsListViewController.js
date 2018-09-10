@@ -206,7 +206,8 @@ angular.module('bahmni.appointments')
                     filteredAppointments: $scope.filteredAppointments,
                     startDate: $stateParams.viewDate,
                     enableServiceTypes: $scope.enableServiceTypes,
-                    enableSpecialities: $scope.enableSpecialities
+                    enableSpecialities: $scope.enableSpecialities,
+                    display: $scope.display
                 });
             };
 
@@ -254,6 +255,8 @@ angular.module('bahmni.appointments')
                 jsonObj = _.mapKeys(jsonObj, function (value, key) {
                     return $translate.instant(key);
                 });
+                if (jsonObj.hasOwnProperty("language") || jsonObj.hasOwnProperty("otherLanguage"))
+                    return Object.values(jsonObj).join(", ");
                 return JSON.stringify(jsonObj || '').replace(/[{\"}]/g, "").replace(/[,]/g, ",\t");
             };
 
