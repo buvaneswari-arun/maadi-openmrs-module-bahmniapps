@@ -255,8 +255,9 @@ angular.module('bahmni.appointments')
                 jsonObj = _.mapKeys(jsonObj, function (value, key) {
                     return $translate.instant(key);
                 });
-                if (jsonObj.hasOwnProperty("language") || jsonObj.hasOwnProperty("otherLanguage"))
+                if (jsonObj.hasOwnProperty("language") || jsonObj.hasOwnProperty("otherLanguage")) {
                     return Object.values(jsonObj).join(", ");
+                }
                 return JSON.stringify(jsonObj || '').replace(/[{\"}]/g, "").replace(/[,]/g, ",\t");
             };
 

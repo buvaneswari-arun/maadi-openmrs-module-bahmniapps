@@ -865,7 +865,7 @@ describe('AppointmentsListViewController', function () {
                 startDate: stateparams.viewDate,
                 enableServiceTypes: scope.enableServiceTypes,
                 enableSpecialities: scope.enableSpecialities,
-                display: scope.display,
+                display: scope.display
             });
     });
 
