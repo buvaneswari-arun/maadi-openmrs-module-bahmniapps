@@ -5,6 +5,8 @@ angular.module('bahmni.appointments')
         function ($scope, $state, $translate, spinner, appointmentsService, appointmentsFilter, $rootScope, $interval, appService) {
             var autoRefreshIntervalInSeconds = parseInt(appService.getAppDescriptor().getConfigValue('autoRefreshIntervalInSeconds'));
             var enableAutoRefresh = !isNaN(autoRefreshIntervalInSeconds);
+            var autoRefreshStatus = true;
+            const SECONDS_TO_MILLISECONDS_FACTOR = 1000;
             var init = function () {
                 $scope.weekView = $rootScope.weekView || $state.params.weekView;
                 if ($scope.weekView) {
@@ -154,7 +156,6 @@ angular.module('bahmni.appointments')
                 }
             };
 
-            var autoRefreshStatus = true;
             var setAppointments = function (params) {
                 autoRefreshStatus = false;
                 if (!$scope.weekView) {
@@ -189,7 +190,6 @@ angular.module('bahmni.appointments')
                 if (!enableAutoRefresh) {
                     return;
                 }
-                var SECONDS_TO_MILLISECONDS_FACTOR = 1000;
                 var autoRefreshIntervalInMilliSeconds = autoRefreshIntervalInSeconds * SECONDS_TO_MILLISECONDS_FACTOR;
                 return $interval(setAppointmentsInAutoRefresh, autoRefreshIntervalInMilliSeconds);
             })();
