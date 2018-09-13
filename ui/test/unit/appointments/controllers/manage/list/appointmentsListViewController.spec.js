@@ -1267,4 +1267,30 @@ describe('AppointmentsListViewController', function () {
         expect(interval.cancel).not.toHaveBeenCalled();
     });
 
+    describe('Reset appointment status functionality', function () {
+        it('should return true when enableResetAppointmentStatusesFor is not undefined', function () {
+            appDescriptor.getConfigValue.and.callFake(function (value) {
+                if (value === 'enableResetAppointmentStatusesFor') {
+                    return "";
+                }
+                return undefined;
+            });
+            createController();
+
+            expect(scope.isResetAppointmentStatusFeatureEnabled()).toBeTruthy();
+        });
+
+        it('should return false when enableResetAppointmentStatusesFor is undefined', function () {
+            appDescriptor.getConfigValue.and.callFake(function (value) {
+                if (value === 'enableResetAppointmentStatusesFor') {
+                    return undefined;
+                }
+                return undefined;
+            });
+            createController();
+
+            expect(scope.isResetAppointmentStatusFeatureEnabled()).toBeFalsy();
+        });
+    });
+
 });

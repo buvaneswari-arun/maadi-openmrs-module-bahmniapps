@@ -10,6 +10,7 @@ angular.module('bahmni.appointments')
             $scope.allowedActions = appService.getAppDescriptor().getConfigValue('allowedActions') || [];
             $scope.allowedActionsByStatus = appService.getAppDescriptor().getConfigValue('allowedActionsByStatus') || {};
             $scope.colorsForListView = appService.getAppDescriptor().getConfigValue('colorsForListView') || {};
+            $scope.enableResetAppointmentStatusesFor = appService.getAppDescriptor().getConfigValue('enableResetAppointmentStatusesFor');
             $scope.manageAppointmentPrivilege = Bahmni.Appointments.Constants.privilegeManageAppointments;
             $scope.ownAppointmentPrivilege = Bahmni.Appointments.Constants.privilegeOwnAppointments;
             $scope.searchedPatient = false;
@@ -303,6 +304,11 @@ angular.module('bahmni.appointments')
             $scope.allowUndoCheckIn = function () {
                 return $scope.isUserAllowedToPerform() && $scope.selectedAppointment &&
                     $scope.selectedAppointment.status === 'CheckedIn';
+            };
+
+            $scope.isResetAppointmentStatusFeatureEnabled = function () {
+                return !(_.isNull($scope.enableResetAppointmentStatusesFor) ||
+                    _.isUndefined($scope.enableResetAppointmentStatusesFor));
             };
 
             init();
