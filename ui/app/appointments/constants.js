@@ -28,6 +28,7 @@ Bahmni.Appointments.Constants = (function () {
         privilegeManageAppointments: 'app:appointments:manageAppointmentsTab',
         privilegeForAdmin: 'app:appointments:adminTab',
         privilegeOwnAppointments: 'Manage Own Appointments',
+        privilegeResetAppointmentStatus: 'Reset Appointment Status',
         availableForAppointments: 'Available for appointments'
     };
 })();
