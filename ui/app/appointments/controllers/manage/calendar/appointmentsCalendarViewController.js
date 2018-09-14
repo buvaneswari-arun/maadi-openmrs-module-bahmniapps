@@ -24,7 +24,7 @@ angular.module('bahmni.appointments')
                 $scope.shouldReload = false;
                 var params = {forDate: viewDate};
                 $scope.$on('$stateChangeStart', function (event, toState, toParams) {
-                    if (toState.tabName == 'list') {
+                    if (toState.tabName == 'list' && !$scope.weekView) {
                         toParams.doFetchAppointmentsData = false;
                     }
                 });
