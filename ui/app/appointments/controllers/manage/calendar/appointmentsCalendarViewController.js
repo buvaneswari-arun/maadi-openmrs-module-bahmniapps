@@ -7,7 +7,7 @@ angular.module('bahmni.appointments')
             var enableAutoRefresh = !isNaN(autoRefreshIntervalInSeconds);
             var init = function () {
                 $scope.startDate = $state.params.viewDate || moment().startOf('day').toDate();
-                $scope.weekView = false;
+                $scope.weekView = $state.params.weekView;
                 $scope.$on('filterClosedOpen', function (event, args) {
                     $scope.isFilterOpen = args.filterViewStatus;
                 });
@@ -20,6 +20,9 @@ angular.module('bahmni.appointments')
             };
 
             $scope.getAppointmentsForDate = function (viewDate) {
+                if ($scope.weekView) {
+                    return;
+                }
                 $state.params.viewDate = viewDate;
                 $scope.shouldReload = false;
                 var params = {forDate: viewDate};
@@ -41,6 +44,7 @@ angular.module('bahmni.appointments')
                 if (!$scope.weekView) {
                     return;
                 }
+                $state.params.viewDate = $scope.startDate;
                 $scope.shouldReload = false;
                 var data = {startDate: startDate, endDate: endDate};
                 return spinner.forPromise(setAppointments(data));
