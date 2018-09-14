@@ -302,7 +302,7 @@ angular.module('bahmni.appointments')
                 return false;
             };
 
-            $scope.allowUndoCheckIn = function () {
+            $scope.isUndoCheckInAllowed = function () {
                 return $scope.isUserAllowedToPerform() && $scope.selectedAppointment &&
                     $scope.selectedAppointment.status === 'CheckedIn';
             };
@@ -317,7 +317,7 @@ angular.module('bahmni.appointments')
                     _.includes($scope.enableResetAppointmentStatusesFor, $scope.selectedAppointment.status);
             };
 
-            $scope.allowResetAppointmentStatus = function () {
+            $scope.isResetAppointmentStatusAllowed = function () {
                 return $scope.isUserAllowedToPerform() &&
                     isCurrentUserHavePrivilege($scope.resetAppointmentStatusPrivilege) && $scope.selectedAppointment &&
                     isSelectedAppointmentStatusAllowedToReset();
