@@ -309,7 +309,9 @@ angular.module('bahmni.appointments')
             };
 
             $scope.isUndoCheckInAllowed = function () {
-                return $scope.isUserAllowedToPerform() && $scope.selectedAppointment &&
+                return $scope.isUserAllowedToPerform() &&
+                    isCurrentUserHavePrivilege($scope.resetAppointmentStatusPrivilege) &&
+                    $scope.selectedAppointment &&
                     $scope.selectedAppointment.status === 'CheckedIn';
             };
 
