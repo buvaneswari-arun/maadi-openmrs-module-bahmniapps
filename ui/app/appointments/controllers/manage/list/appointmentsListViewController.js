@@ -10,8 +10,10 @@ angular.module('bahmni.appointments')
             $scope.allowedActions = appService.getAppDescriptor().getConfigValue('allowedActions') || [];
             $scope.allowedActionsByStatus = appService.getAppDescriptor().getConfigValue('allowedActionsByStatus') || {};
             $scope.colorsForListView = appService.getAppDescriptor().getConfigValue('colorsForListView') || {};
+            $scope.enableResetAppointmentStatusesFor = appService.getAppDescriptor().getConfigValue('enableResetAppointmentStatusesFor');
             $scope.manageAppointmentPrivilege = Bahmni.Appointments.Constants.privilegeManageAppointments;
             $scope.ownAppointmentPrivilege = Bahmni.Appointments.Constants.privilegeOwnAppointments;
+            $scope.resetAppointmentStatusPrivilege = Bahmni.Appointments.Constants.privilegeResetAppointmentStatus;
             $scope.searchedPatient = false;
             var autoRefreshIntervalInSeconds = parseInt(appService.getAppDescriptor().getConfigValue('autoRefreshIntervalInSeconds'));
             var enableAutoRefresh = !isNaN(autoRefreshIntervalInSeconds);
@@ -212,21 +214,27 @@ angular.module('bahmni.appointments')
             };
 
             $scope.undoCheckIn = function () {
-                var undoCheckIn = function (closeConfirmBox) {
-                    return appointmentsService.undoCheckIn($scope.selectedAppointment.uuid).then(function (response) {
-                        ngDialog.close();
-                        $scope.selectedAppointment.status = response.data.status;
-                        var message = $translate.instant('APPOINTMENT_STATUS_CHANGE_SUCCESS_MESSAGE', {
-                            toStatus: response.data.status
-                        });
-                        closeConfirmBox();
-                        messagingService.showMessage('info', message);
-                    });
-                };
-
                 var scope = {};
                 scope.message = $translate.instant('APPOINTMENT_UNDO_CHECKIN_CONFIRM_MESSAGE');
-                scope.yes = undoCheckIn;
+                scope.yes = resetStatus;
+                showPopUp(scope);
+            };
+
+            var resetStatus = function (closeConfirmBox) {
+                return appointmentsService.changeStatus($scope.selectedAppointment.uuid, 'Scheduled', null).then(function (response) {
+                    $scope.selectedAppointment.status = response.data.status;
+                    var message = $translate.instant('APPOINTMENT_STATUS_CHANGE_SUCCESS_MESSAGE', {
+                        toStatus: response.data.status
+                    });
+                    closeConfirmBox();
+                    messagingService.showMessage('info', message);
+                });
+            };
+
+            $scope.reset = function () {
+                var scope = {};
+                scope.message = $translate.instant('APPOINTMENT_RESET_CONFIRM_MESSAGE');
+                scope.yes = resetStatus;
                 showPopUp(scope);
             };
 
@@ -304,9 +312,29 @@ angular.module('bahmni.appointments')
                 return false;
             };
 
-            $scope.allowUndoCheckIn = function () {
-                return $scope.isUserAllowedToPerform() && $scope.selectedAppointment &&
+            $scope.isUndoCheckInAllowed = function () {
+                return $scope.isUserAllowedToPerform() &&
+                    isCurrentUserHavePrivilege($scope.resetAppointmentStatusPrivilege) &&
+                    $scope.selectedAppointment &&
                     $scope.selectedAppointment.status === 'CheckedIn';
+            };
+
+            $scope.isResetAppointmentStatusFeatureEnabled = function () {
+                return !(_.isNull($scope.enableResetAppointmentStatusesFor) ||
+                    _.isUndefined($scope.enableResetAppointmentStatusesFor));
+            };
+
+            var isSelectedAppointmentStatusAllowedToReset = function () {
+                return _.isArray($scope.enableResetAppointmentStatusesFor) &&
+                    _.includes($scope.enableResetAppointmentStatusesFor, $scope.selectedAppointment.status);
+            };
+
+            $scope.isResetAppointmentStatusAllowed = function () {
+                return $scope.isUserAllowedToPerform() &&
+                    isCurrentUserHavePrivilege($scope.resetAppointmentStatusPrivilege) &&
+                    $scope.selectedAppointment &&
+                    $scope.selectedAppointment.status != 'Scheduled' &&
+                    isSelectedAppointmentStatusAllowedToReset();
             };
 
             init();
