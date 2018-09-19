@@ -15,7 +15,8 @@ angular.module('bahmni.appointments')
                     $scope.isFilterOpen = args.filterViewStatus;
                 });
                 $scope.isFilterOpen = $state.params.isFilterOpen;
-                $scope.weekStart = appService.getAppDescriptor().getConfigValue('startOfWeek');
+                var weekStartDay = appService.getAppDescriptor().getConfigValue('startOfWeek');
+                $scope.weekStart = Bahmni.Appointments.Constants.weekDays[weekStartDay];
             };
 
             $scope.toggleWeekView = function () {
