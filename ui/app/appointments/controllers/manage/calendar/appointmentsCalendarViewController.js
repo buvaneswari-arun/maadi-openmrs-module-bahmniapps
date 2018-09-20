@@ -89,6 +89,7 @@ angular.module('bahmni.appointments')
             };
 
             var getStartDate = function (date) {
+                date = date || moment().startOf('day');
                 return moment(date).isoWeekday(moment().isoWeekday()).toDate();
             };
 
