@@ -23,7 +23,8 @@ Bahmni.Appointments.Constants = (function () {
         defaultCalendarStartTime: "08:00",
         defaultCalendarEndTime: "19:00",
         defaultWeekDays: [0, 1, 2, 3, 4, 5, 6],
-        defaultFirstDay: 1,
+        defaultWeekStartDay: 0,
+        defaultWeekStartDayName: 'Sunday',
         minDurationForAppointment: 30,
         appointmentStatusList: [ "Scheduled", "CheckedIn", "Completed", "Cancelled", "Missed" ],
         regexForTime: /^(?:(?:1[0-2]|0?[1-9]):[0-5]\d\s*[AaPp][Mm])?$/,
@@ -31,7 +32,8 @@ Bahmni.Appointments.Constants = (function () {
         privilegeForAdmin: 'app:appointments:adminTab',
         privilegeOwnAppointments: 'Manage Own Appointments',
         privilegeResetAppointmentStatus: 'Reset Appointment Status',
-        availableForAppointments: 'Available for appointments'
+        availableForAppointments: 'Available for appointments',
+        weekDays: {"Monday": 1, "Tuesday": 2, "Wednesday": 3, "Thursday": 4, "Friday": 5, "Saturday": 6, "Sunday": 7 }
     };
 })();
 
