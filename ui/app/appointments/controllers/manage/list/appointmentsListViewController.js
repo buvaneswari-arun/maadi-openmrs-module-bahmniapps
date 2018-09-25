@@ -133,7 +133,17 @@ angular.module('bahmni.appointments')
             };
 
             $scope.isSelected = function (appointment) {
-                return $scope.selectedAppointment === appointment;
+                if (!isNullOrUndefined($scope.selectedAppointment)
+                    && !isNullOrUndefined($scope.selectedAppointment)) {
+                    return $scope.selectedAppointment.uuid === appointment.uuid;
+                }
+                else {
+                    return false;
+                }
+            };
+
+            var isNullOrUndefined = function (obj) {
+                return _.isNull(obj) || _.isUndefined(obj);
             };
 
             $scope.select = function (appointment) {
