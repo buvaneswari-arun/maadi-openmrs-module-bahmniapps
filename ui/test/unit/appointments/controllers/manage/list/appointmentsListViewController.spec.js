@@ -117,8 +117,8 @@ describe('AppointmentsListViewController', function () {
 
     it('should select an appointment', function () {
         createController();
-        var appointment1 = {patient: {name: 'patient1'},uuid: 'uuid1'};
-        var appointment2 = {patient: {name: 'patient2'},uuid: 'uuid2'};
+        var appointment1 = {patient: {name: 'patient1'}};
+        var appointment2 = {patient: {name: 'patient2'}};
         scope.appointments = [appointment1, appointment2];
         scope.select(appointment2);
         expect(scope.selectedAppointment).toBe(appointment2);
@@ -128,8 +128,8 @@ describe('AppointmentsListViewController', function () {
 
     it('should unselect an appointment if is selected', function () {
         createController();
-        var appointment1 = {patient: {name: 'patient1'},uuid: 'uuid1'};
-        var appointment2 = {patient: {name: 'patient2'},uuid: 'uuid2'};
+        var appointment1 = {patient: {name: 'patient1'}};
+        var appointment2 = {patient: {name: 'patient2'}};
         scope.appointments = [appointment1, appointment2];
         scope.select(appointment2);
         expect(scope.selectedAppointment).toBe(appointment2);
