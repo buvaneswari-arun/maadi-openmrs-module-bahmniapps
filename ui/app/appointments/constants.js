@@ -24,6 +24,8 @@ Bahmni.Appointments.Constants = (function () {
         defaultCalendarEndTime: "19:00",
         defaultWeekDays: [0, 1, 2, 3, 4, 5, 6],
         defaultWeekStartDay: 0,
+        defaultExpandServiceFilter: -1,
+        collapseServiceFilter: 0,
         defaultWeekStartDayName: 'Sunday',
         minDurationForAppointment: 30,
         appointmentStatusList: [ "Scheduled", "CheckedIn", "Completed", "Cancelled", "Missed" ],
