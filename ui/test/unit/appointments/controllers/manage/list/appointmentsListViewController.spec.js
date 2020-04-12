@@ -970,17 +970,6 @@ describe('AppointmentsListViewController', function () {
              var jsonString = "1,2,3, true, , 123, [object Object], Hello World";
              expect(display).toEqual(jsonString);
 
-    it('should get display of a string if json object contains language details', function () {
-        $translate.instant.and.callFake(function (value) {
-            return value;
-        });
-        createController();
-        var jsonObject = {"language": "English", "otherLanguage": "French"};
-        var jsonString = "English, French";
-
-        var display = scope.display(jsonObject);
-
-        expect(display).toEqual(jsonString);
     });
 
     it('should internationalize the keys if present of the json object', function () {
